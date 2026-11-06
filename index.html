@@ -1,92 +1,249 @@
+```html
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ruth & João - Nosso Casamento</title>
-    <link rel="stylesheet" href="style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<script>
-    document.addEventListener('DOMContentLoaded', (event) => {
-        const hamburger = document.querySelector('.hamburger');
-        const navMenu = document.querySelector('.main-nav');
-
-        // Adiciona um ouvinte de evento para o clique no botão
-        hamburger.addEventListener('click', () => {
-            // Alterna a classe 'active' para mostrar ou esconder o menu
-            navMenu.classList.toggle('active');
-        });
-    });
-</script>
-<body>
-
-    <header class="main-header">
-        <div class="header-container">
-            <a href="#inicio" class="logo">
-                <img src="Logo.png" alt="Logo Ruth e João">
-            </a>
-            
-            <button class="hamburger" aria-label="Toggle navigation">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </button>
+    <title>Joãozinho Maker | Projetos Especialmente Feitos</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fff1f2',
+                            100: '#ffe4e6',
+                            500: '#f43f5e',
+                            600: '#e11d48',
+                            900: '#881337',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-            <nav class="main-nav" id="mobile-menu">
-                <ul>
-                    <li><a href="#nossa-historia">Nossa História</a></li>
-                    <li><a href="#detalhes">Detalhes</a></li>
-                    <li><a href="#presentes">Presentes</a></li>
-                    <li><a href="#rsvp">Confirmação</a></li>
-                </ul>
-            </nav>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+
+        /* Animação suave para as partículas do canvas background */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Efeito Glow para cartões e botões */
+        .glow-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .glow-effect:hover {
+            box-shadow: 0 0 25px rgba(244, 63, 94, 0.4);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between relative selection:bg-rose-500 selection:text-white">
+
+    <!-- Canvas para efeito visual de partículas e corações -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Cabeçalho / Navbar -->
+    <header class="relative z-10 w-full max-w-5xl mx-auto p-6 flex justify-between items-center">
+        <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-rose-500 to-indigo-600 flex items-center justify-center shadow-lg">
+                <i class="fa-solid fa-code text-white text-lg"></i>
+            </div>
+            <span class="font-mono text-sm tracking-wider font-semibold text-slate-200">
+                joaozinho<span class="text-rose-500">.maker</span>
+            </span>
+        </div>
+        <div class="flex items-center space-x-2 bg-slate-800/80 px-3 py-1.5 rounded-full border border-slate-700 text-xs font-mono text-slate-300">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>status: em desenvolvimento</span>
         </div>
     </header>
-    <main>
-        <section id="nossa-historia" class="our-story">
-            <h2>Nossa História</h2>
-            <p>Conheça um pouco sobre como tudo começou. De um encontro inesperado a um amor que cresceu e nos uniu para sempre. Cada momento nos trouxe até aqui.</p>
-        </section>
 
-        <section id="detalhes" class="details">
-            <h2>Detalhes do Casamento</h2>
-            <div class="details-grid">
-                <div class="detail-box">
-                    <h3>Cerimônia</h3>
-                    <p>Igreja Nossa Senhora do Rosário</p>
-                    <p>Horário: 17:00</p>
-                </div>
-                <div class="detail-box">
-                    <h3>Recepção</h3>
-                    <p>Salão de Festas Jardim Florido</p>
-                    <p>Horário: 18:30</p>
-                </div>
-            </div>
-            <a href="https://maps.google.com" target="_blank" class="map-link">Ver no Google Maps</a>
-        </section>
+    <!-- Conteúdo Principal -->
+    <main class="relative z-10 max-w-3xl mx-auto px-6 py-12 text-center flex-1 flex flex-col justify-center items-center">
+        
+        <!-- Tag Superior -->
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs font-mono mb-8">
+            <i class="fa-solid fa-heart text-xs"></i>
+            <span>Construindo algo especial</span>
+        </div>
 
-        <section id="rsvp" class="rsvp">
-            <h2>Confirme sua Presença</h2>
-            <a href="pix.html" class="rsvp-button">Confirmar Agora</a>
-        </section>
-        <section>
-            <h2>Presente de Casamento</h2>
-            <p>Ao invés de presentes estamos aceitando pix, ajude com quantia que puder. </p>
-            <p>Os links irão direcionar você para o seu aplicativo de banco com o valor preenchido.</p>
-    
-            <div class="gift-options-grid">
-                <a href="https://nubank.com.br/cobrar/g6qbe0/68b87bc1-a043-40f7-9c33-eac9c6e70bff" class="gift-button">R$ 50</a>
-                <a href="https://nubank.com.br/cobrar/g6qbe0/68b87c41-b2f2-4a5c-8f64-4605b3acc288" class="gift-button">R$ 100</a>
-                <a href="https://nubank.com.br/cobrar/g6qbe0/68b87c53-d8ba-4e63-b1bf-5878951b0ef7" class="gift-button">R$ 200</a>
-                <a href="https://nubank.com.br/cobrar/g6qbe0/68b87c67-6e70-4012-98b1-4e8906966240" class="gift-button">R$ 400</a>
+        <!-- Título Principal -->
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white mb-6 leading-tight">
+            Grandes histórias começam com <span class="bg-gradient-to-r from-rose-400 via-pink-500 to-indigo-400 bg-clip-text text-transparent">pequenos detalhes.</span>
+        </h1>
+
+        <!-- Subtítulo -->
+        <p class="text-base sm:text-lg text-slate-400 max-w-xl mx-auto mb-10 leading-relaxed font-light">
+            Esta página está a ser preparada com todo o carinho e dedicação. Em breve, um novo capítulo com momentos e projetos incríveis estará disponível por aqui.
+        </p>
+
+        <!-- Cartão de Ações / Status -->
+        <div class="w-full max-w-md glow-card p-6 sm:p-8 rounded-3xl shadow-2xl relative overflow-hidden mb-8">
+            <div class="absolute -right-10 -top-10 w-32 h-32 bg-rose-500/10 rounded-full blur-2xl"></div>
+            
+            <div class="flex flex-col space-y-4">
+                <div class="flex justify-between items-center text-xs font-mono text-slate-400 pb-2 border-b border-slate-700/50">
+                    <span>PROJETO: <strong>#VERCEL-READY</strong></span>
+                    <span>PROGRESSO: <strong>75%</strong></span>
+                </div>
+
+                <!-- Barra de Progresso Simbólica -->
+                <div class="w-full bg-slate-700/50 h-2.5 rounded-full overflow-hidden p-0.5">
+                    <div class="bg-gradient-to-r from-rose-500 to-indigo-500 h-full rounded-full w-3/4 animate-pulse"></div>
+                </div>
+
+                <p class="text-xs text-slate-400 pt-2">
+                    "O segredo é cultivar o presente e criar memórias valiosas a cada passo."
+                </p>
+
+                <!-- Botão de Ação -->
+                <button onclick="mostrarMensagem()" class="mt-4 w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-rose-500 to-indigo-600 hover:from-rose-600 hover:to-indigo-700 text-white font-medium text-sm transition-all duration-300 transform active:scale-95 shadow-lg shadow-rose-500/25 glow-effect flex items-center justify-center space-x-2">
+                    <i class="fa-regular fa-paper-plane"></i>
+                    <span>Deixar um olá</span>
+                </button>
             </div>
-        </section>
+        </div>
+
+        <!-- Mensagem de Feedback Secreta (inicialmente oculta) -->
+        <div id="mensagem-feedback" class="hidden w-full max-w-md p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs text-center font-mono">
+            ✨ Mensagem enviada! Obrigado por fazer parte da jornada.
+        </div>
+
     </main>
 
-    <footer class="wedding-footer">
-        <p>Feito com amor por Ruth & joão © 2025</p>
+    <!-- Rodapé -->
+    <footer class="relative z-10 w-full max-w-5xl mx-auto p-6 text-center text-xs text-slate-500 font-mono flex flex-col sm:flex-row justify-between items-center gap-4 border-t border-slate-800/80">
+        <div>
+            © <span id="ano-atual"></span> joaozinho-maker. Todos os direitos reservados.
+        </div>
+        <div class="flex items-center space-x-4">
+            <span class="hover:text-slate-400 transition-colors cursor-pointer"><i class="fa-brands fa-github text-sm"></i> GitHub</span>
+            <span class="hover:text-slate-400 transition-colors cursor-pointer"><i class="fa-solid fa-cube text-sm"></i> Vercel</span>
+        </div>
     </footer>
 
+    <!-- Lógica de Efeitos e Interatividade -->
+    <script>
+        // Atualiza o ano no rodapé
+        document.getElementById('ano-atual').textContent = new Date().getFullYear();
+
+        // Mostrar mensagem no botão
+        function mostrarMensagem() {
+            const feedback = document.getElementById('mensagem-feedback');
+            feedback.classList.remove('hidden');
+            feedback.classList.add('animate-bounce');
+            setTimeout(() => {
+                feedback.classList.remove('animate-bounce');
+            }, 1000);
+        }
+
+        // Animação de Fundo com Canvas (Partículas & Corações Flutuantes)
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        // Classe da Partícula
+        class Particula {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * width;
+                this.y = height + Math.random() * 100;
+                this.size = Math.random() * 2 + 1;
+                this.speedY = Math.random() * 0.8 + 0.2;
+                this.speedX = (Math.random() - 0.5) * 0.4;
+                this.opacity = Math.random() * 0.5 + 0.2;
+                this.isHeart = Math.random() > 0.85; // 15% das partículas são corações sutis
+            }
+
+            update() {
+                this.y -= this.speedY;
+                this.x += this.speedX;
+
+                if (this.y < -10) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.opacity;
+                
+                if (this.isHeart) {
+                    // Desenha um pequeno coração discreto
+                    ctx.fillStyle = '#f43f5e';
+                    ctx.font = `${this.size * 4}px sans-serif`;
+                    ctx.fillText('♥', this.x, this.y);
+                } else {
+                    // Desenha uma partícula circular comum
+                    ctx.fillStyle = '#94a3b8';
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                
+                ctx.restore();
+            }
+        }
+
+        // Criar Array de Partículas
+        const particulas = Array.from({ length: 45 }, () => new Particula());
+
+        // Loop de Animação
+        function animar() {
+            ctx.clearRect(0, 0, width, height);
+            particulas.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animar);
+        }
+
+        // Iniciar Animação no Carregamento
+        window.onload = function() {
+            animar();
+        };
+    </script>
 </body>
 </html>
+```
