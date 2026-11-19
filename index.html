@@ -1,249 +1,482 @@
 ```html
 <!DOCTYPE html>
-<html lang="pt-BR" class="dark">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Joãozinho Maker | Projetos Especialmente Feitos</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            50: '#fff1f2',
-                            100: '#ffe4e6',
-                            500: '#f43f5e',
-                            600: '#e11d48',
-                            900: '#881337',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['Fira Code', 'monospace']
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #0f172a;
-            color: #f8fafc;
-            overflow-x: hidden;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Convite Especial • Emilly</title>
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0f172a;
+      color: #f8fafc;
+      overflow-x: hidden;
+    }
 
-        /* Animação suave para as partículas do canvas background */
-        #bg-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
+    h1, h2, .font-display {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
 
-        /* Efeito Glow para cartões e botões */
-        .glow-card {
-            background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
+    /* Animação suave de entrada dos cartões */
+    @keyframes fadeSlideUp {
+      0% {
+        opacity: 0;
+        transform: translateY(18px) scale(0.98);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
 
-        .glow-effect:hover {
-            box-shadow: 0 0 25px rgba(244, 63, 94, 0.4);
-        }
-    </style>
+    .animate-step {
+      animation: fadeSlideUp 0.42s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* Brilho decorativo sutil no fundo */
+    .bg-glow {
+      background:
+        radial-gradient(circle at 15% 15%, rgba(236, 72, 153, 0.22), transparent 45%),
+        radial-gradient(circle at 85% 25%, rgba(147, 51, 234, 0.25), transparent 50%),
+        radial-gradient(circle at 50% 90%, rgba(30, 27, 75, 0.9), #0f172a 75%);
+    }
+
+    /* Efeito de toque nos botões */
+    .btn-tap {
+      transition: transform 0.16s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    }
+    .btn-tap:active {
+      transform: scale(0.97);
+    }
+  </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between relative selection:bg-rose-500 selection:text-white">
+<body class="bg-glow min-h-screen flex flex-col justify-between items-center px-4 py-6 sm:py-10 selection:bg-pink-500 selection:text-white">
 
-    <!-- Canvas para efeito visual de partículas e corações -->
-    <canvas id="bg-canvas"></canvas>
+  <!-- Cabeçalho discreto com barra de progresso -->
+  <header class="w-full max-w-md flex flex-col gap-3 z-10">
+    <div class="flex items-center justify-between text-xs text-slate-300/80 px-1">
+      <button
+        id="btn-back"
+        type="button"
+        onclick="goBack()"
+        class="invisible inline-flex items-center gap-1.5 py-1.5 px-3 rounded-full bg-white/5 hover:bg-white/10 text-pink-200 font-medium transition focus:outline-none focus:ring-2 focus:ring-pink-400/50"
+        aria-label="Voltar para a etapa anterior"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+        Voltar
+      </button>
 
-    <!-- Cabeçalho / Navbar -->
-    <header class="relative z-10 w-full max-w-5xl mx-auto p-6 flex justify-between items-center">
-        <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-rose-500 to-indigo-600 flex items-center justify-center shadow-lg">
-                <i class="fa-solid fa-code text-white text-lg"></i>
+      <span id="step-indicator" class="font-medium tracking-wide text-purple-200/80">
+        Etapa 1
+      </span>
+    </div>
+
+    <!-- Barra de progresso -->
+    <div class="w-full h-1.5 bg-slate-800/90 rounded-full overflow-hidden p-[1px]">
+      <div
+        id="progress-bar"
+        class="h-full rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-400 transition-all duration-500 ease-out"
+        style="width: 14%;"
+      ></div>
+    </div>
+  </header>
+
+  <!-- Container Principal (Cartão Interativo) -->
+  <main class="w-full max-w-md my-auto py-6 z-10">
+    <div
+      id="card-container"
+      class="w-full rounded-3xl bg-slate-900/75 backdrop-blur-xl border border-purple-500/25 shadow-[0_20px_60px_-15px_rgba(147,51,234,0.35)] p-6 sm:p-8"
+    >
+      <!-- Conteúdo dinâmico injetado via JS -->
+      <div id="step-content" class="animate-step"></div>
+    </div>
+  </main>
+
+  <!-- Rodapé sutil -->
+  <footer class="w-full max-w-md text-center text-xs text-slate-400/70 z-10">
+    Feito especialmente para você ✨
+  </footer>
+
+  <script>
+    // Estado da aplicação armazenando as escolhas e o histórico de navegação
+    const state = {
+      currentStep: 'welcome',
+      history: [],
+      choices: {
+        accepted: '',
+        date: '',
+        activity: '',
+        time: ''
+      }
+    };
+
+    // Número do WhatsApp de destino
+    const WHATSAPP_NUMBER = '5511993998332';
+
+    // Elementos do DOM
+    const stepContentEl = document.getElementById('step-content');
+    const btnBackEl = document.getElementById('btn-back');
+    const progressBarEl = document.getElementById('progress-bar');
+    const stepIndicatorEl = document.getElementById('step-indicator');
+
+    /**
+     * Calcula a porcentagem de progresso de acordo com o fluxo atual
+     */
+    function getProgressInfo(step) {
+      const hasMovie = state.choices.activity === 'Cinema assistir Hexed';
+      const flow = hasMovie
+        ? ['welcome', 'accept', 'date', 'activity', 'movieInfo', 'time', 'restaurant', 'summary']
+        : ['welcome', 'accept', 'date', 'activity', 'time', 'restaurant', 'summary'];
+
+      const index = flow.indexOf(step);
+      const current = index >= 0 ? index + 1 : 1;
+      const total = flow.length;
+      const percent = Math.round((current / total) * 100);
+
+      return { current, total, percent };
+    }
+
+    /**
+     * Navega para uma nova etapa e salva a anterior no histórico
+     */
+    function goToStep(nextStep) {
+      if (state.currentStep !== nextStep) {
+        state.history.push(state.currentStep);
+        state.currentStep = nextStep;
+        renderStep();
+      }
+    }
+
+    /**
+     * Volta para a etapa anterior no histórico
+     */
+    function goBack() {
+      if (state.history.length > 0) {
+        state.currentStep = state.history.pop();
+        renderStep();
+      }
+    }
+
+    /**
+     * Registra uma escolha e avança para o próximo passo
+     */
+    function selectOption(field, value, nextStep) {
+      state.choices[field] = value;
+      goToStep(nextStep);
+    }
+
+    /**
+     * Gera o link do WhatsApp com todas as escolhas formatadas
+     */
+    function buildWhatsAppUrl() {
+      const { accepted, date, activity, time } = state.choices;
+      const message = [
+        `Oi! Aceitei o convite (${accepted}) ✨`,
+        ``,
+        `📅 *Sábado escolhido:* ${date}`,
+        `🎯 *Rolê:* ${activity}`,
+        `🚉 *Horário no trem Santo Amaro:* ${time}`,
+        `🍽️ *Almoço:* Restaurante América`,
+        `⛪ *18h:* Culto`
+      ].join('\n');
+
+      return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    }
+
+    /**
+     * Renderiza o conteúdo HTML da etapa atual com animação
+     */
+    function renderStep() {
+      const { current, total, percent } = getProgressInfo(state.currentStep);
+
+      // Atualiza barra de progresso e indicador
+      progressBarEl.style.width = `${percent}%`;
+      stepIndicatorEl.textContent = `Passo ${current} de ${total}`;
+
+      // Controla visibilidade do botão Voltar
+      if (state.history.length > 0) {
+        btnBackEl.classList.remove('invisible');
+      } else {
+        btnBackEl.classList.add('invisible');
+      }
+
+      // Reinicia animação do container
+      stepContentEl.classList.remove('animate-step');
+      void stepContentEl.offsetWidth; // força reflow
+      stepContentEl.classList.add('animate-step');
+
+      switch (state.currentStep) {
+        case 'welcome':
+          stepContentEl.innerHTML = `
+            <div class="flex flex-col items-center text-center">
+              <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-pink-500/20 to-purple-600/30 border border-pink-400/30 flex items-center justify-center mb-6 shadow-inner">
+                <span class="text-3xl" role="img" aria-label="Brilhos">🎀</span>
+              </div>
+
+              <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-pink-500/15 text-pink-300 border border-pink-500/25 mb-4">
+                Convite Especial
+              </span>
+
+              <h1 class="text-2xl sm:text-3xl font-extrabold text-white leading-snug mb-6">
+                Oi Emilly, esse site é um convite para a gente passar um tempo juntos antes do culto
+              </h1>
+
+              <button
+                type="button"
+                onclick="goToStep('accept')"
+                class="btn-tap w-full py-4 px-6 rounded-2xl font-bold text-base text-white bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 hover:from-pink-400 hover:to-purple-500 shadow-lg shadow-pink-500/25 focus:outline-none focus:ring-2 focus:ring-pink-400"
+              >
+                Continuar →
+              </button>
             </div>
-            <span class="font-mono text-sm tracking-wider font-semibold text-slate-200">
-                joaozinho<span class="text-rose-500">.maker</span>
-            </span>
-        </div>
-        <div class="flex items-center space-x-2 bg-slate-800/80 px-3 py-1.5 rounded-full border border-slate-700 text-xs font-mono text-slate-300">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span>status: em desenvolvimento</span>
-        </div>
-    </header>
+          `;
+          break;
 
-    <!-- Conteúdo Principal -->
-    <main class="relative z-10 max-w-3xl mx-auto px-6 py-12 text-center flex-1 flex flex-col justify-center items-center">
-        
-        <!-- Tag Superior -->
-        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs font-mono mb-8">
-            <i class="fa-solid fa-heart text-xs"></i>
-            <span>Construindo algo especial</span>
-        </div>
+        case 'accept':
+          stepContentEl.innerHTML = `
+            <div class="flex flex-col items-center text-center">
+              <div class="w-14 h-14 rounded-2xl bg-purple-500/20 border border-purple-400/30 flex items-center justify-center mb-5">
+                <span class="text-2xl" role="img" aria-label="Coração">💜</span>
+              </div>
 
-        <!-- Título Principal -->
-        <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white mb-6 leading-tight">
-            Grandes histórias começam com <span class="bg-gradient-to-r from-rose-400 via-pink-500 to-indigo-400 bg-clip-text text-transparent">pequenos detalhes.</span>
-        </h1>
+              <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-2">
+                Vc aceitas?
+              </h2>
+              <p class="text-sm text-slate-300/80 mb-7">
+                Escolha uma das opções abaixo para continuar
+              </p>
 
-        <!-- Subtítulo -->
-        <p class="text-base sm:text-lg text-slate-400 max-w-xl mx-auto mb-10 leading-relaxed font-light">
-            Esta página está a ser preparada com todo o carinho e dedicação. Em breve, um novo capítulo com momentos e projetos incríveis estará disponível por aqui.
-        </p>
-
-        <!-- Cartão de Ações / Status -->
-        <div class="w-full max-w-md glow-card p-6 sm:p-8 rounded-3xl shadow-2xl relative overflow-hidden mb-8">
-            <div class="absolute -right-10 -top-10 w-32 h-32 bg-rose-500/10 rounded-full blur-2xl"></div>
-            
-            <div class="flex flex-col space-y-4">
-                <div class="flex justify-between items-center text-xs font-mono text-slate-400 pb-2 border-b border-slate-700/50">
-                    <span>PROJETO: <strong>#VERCEL-READY</strong></span>
-                    <span>PROGRESSO: <strong>75%</strong></span>
-                </div>
-
-                <!-- Barra de Progresso Simbólica -->
-                <div class="w-full bg-slate-700/50 h-2.5 rounded-full overflow-hidden p-0.5">
-                    <div class="bg-gradient-to-r from-rose-500 to-indigo-500 h-full rounded-full w-3/4 animate-pulse"></div>
-                </div>
-
-                <p class="text-xs text-slate-400 pt-2">
-                    "O segredo é cultivar o presente e criar memórias valiosas a cada passo."
-                </p>
-
-                <!-- Botão de Ação -->
-                <button onclick="mostrarMensagem()" class="mt-4 w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-rose-500 to-indigo-600 hover:from-rose-600 hover:to-indigo-700 text-white font-medium text-sm transition-all duration-300 transform active:scale-95 shadow-lg shadow-rose-500/25 glow-effect flex items-center justify-center space-x-2">
-                    <i class="fa-regular fa-paper-plane"></i>
-                    <span>Deixar um olá</span>
+              <div class="w-full flex flex-col gap-3.5">
+                <button
+                  type="button"
+                  onclick="selectOption('accepted', 'Sim', 'date')"
+                  class="btn-tap w-full py-4 px-6 rounded-2xl font-bold text-base text-white bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-400 hover:to-purple-500 shadow-lg shadow-pink-500/20"
+                >
+                  Sim
                 </button>
+
+                <button
+                  type="button"
+                  onclick="selectOption('accepted', 'Com certeza', 'date')"
+                  class="btn-tap w-full py-4 px-6 rounded-2xl font-bold text-base text-pink-100 bg-indigo-950/90 hover:bg-purple-900/60 border border-pink-400/35 shadow-md"
+                >
+                  Com certeza ✨
+                </button>
+              </div>
             </div>
-        </div>
+          `;
+          break;
 
-        <!-- Mensagem de Feedback Secreta (inicialmente oculta) -->
-        <div id="mensagem-feedback" class="hidden w-full max-w-md p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs text-center font-mono">
-            ✨ Mensagem enviada! Obrigado por fazer parte da jornada.
-        </div>
+        case 'date':
+          stepContentEl.innerHTML = `
+            <div class="flex flex-col items-center text-center">
+              <div class="w-14 h-14 rounded-2xl bg-pink-500/20 border border-pink-400/30 flex items-center justify-center mb-5">
+                <span class="text-2xl" role="img" aria-label="Calendário">📅</span>
+              </div>
 
-    </main>
+              <h2 class="text-xl sm:text-2xl font-extrabold text-white leading-snug mb-7">
+                Q bom que vc escolheu por livre e espontânea vontade, preciso saber qual sábado vc prefere?
+              </h2>
 
-    <!-- Rodapé -->
-    <footer class="relative z-10 w-full max-w-5xl mx-auto p-6 text-center text-xs text-slate-500 font-mono flex flex-col sm:flex-row justify-between items-center gap-4 border-t border-slate-800/80">
-        <div>
-            © <span id="ano-atual"></span> joaozinho-maker. Todos os direitos reservados.
-        </div>
-        <div class="flex items-center space-x-4">
-            <span class="hover:text-slate-400 transition-colors cursor-pointer"><i class="fa-brands fa-github text-sm"></i> GitHub</span>
-            <span class="hover:text-slate-400 transition-colors cursor-pointer"><i class="fa-solid fa-cube text-sm"></i> Vercel</span>
-        </div>
-    </footer>
+              <div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                <button
+                  type="button"
+                  onclick="selectOption('date', '28/11', 'activity')"
+                  class="btn-tap py-4 px-6 rounded-2xl font-bold text-lg text-white bg-gradient-to-br from-pink-500/90 to-purple-700/90 hover:from-pink-500 hover:to-purple-600 border border-pink-300/30 shadow-lg shadow-purple-900/40"
+                >
+                  28/11
+                </button>
 
-    <!-- Lógica de Efeitos e Interatividade -->
-    <script>
-        // Atualiza o ano no rodapé
-        document.getElementById('ano-atual').textContent = new Date().getFullYear();
+                <button
+                  type="button"
+                  onclick="selectOption('date', '03/12', 'activity')"
+                  class="btn-tap py-4 px-6 rounded-2xl font-bold text-lg text-white bg-gradient-to-br from-purple-600/90 to-indigo-800/90 hover:from-purple-500 hover:to-indigo-700 border border-purple-300/30 shadow-lg shadow-indigo-950/50"
+                >
+                  03/12
+                </button>
+              </div>
+            </div>
+          `;
+          break;
 
-        // Mostrar mensagem no botão
-        function mostrarMensagem() {
-            const feedback = document.getElementById('mensagem-feedback');
-            feedback.classList.remove('hidden');
-            feedback.classList.add('animate-bounce');
-            setTimeout(() => {
-                feedback.classList.remove('animate-bounce');
-            }, 1000);
-        }
+        case 'activity':
+          stepContentEl.innerHTML = `
+            <div class="flex flex-col items-center text-center">
+              <div class="w-14 h-14 rounded-2xl bg-indigo-500/20 border border-indigo-400/30 flex items-center justify-center mb-5">
+                <span class="text-2xl" role="img" aria-label="Estrela">🌟</span>
+              </div>
 
-        // Animação de Fundo com Canvas (Partículas & Corações Flutuantes)
-        const canvas = document.getElementById('bg-canvas');
-        const ctx = canvas.getContext('2d');
+              <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-2">
+                Oq vc quer fazer?
+              </h2>
+              <p class="text-sm text-slate-300/80 mb-7">
+                Sábado dia <span class="text-pink-300 font-semibold">${state.choices.date}</span>
+              </p>
 
-        let width = canvas.width = window.innerWidth;
-        let height = canvas.height = window.innerHeight;
+              <div class="w-full flex flex-col gap-3.5">
+                <button
+                  type="button"
+                  onclick="selectOption('activity', 'Parque Villa Lobos', 'time')"
+                  class="btn-tap w-full p-4 rounded-2xl text-left flex items-center gap-4 bg-slate-800/80 hover:bg-purple-900/40 border border-purple-400/30 transition"
+                >
+                  <span class="w-12 h-12 rounded-xl bg-pink-500/20 flex items-center justify-center text-2xl shrink-0">
+                    🌳
+                  </span>
+                  <div>
+                    <div class="font-bold text-base text-white">Parque Villa Lobos</div>
+                    <div class="text-xs text-slate-300/80">Passeio ao ar livre e tranquilo</div>
+                  </div>
+                </button>
 
-        window.addEventListener('resize', () => {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-        });
+                <button
+                  type="button"
+                  onclick="selectOption('activity', 'Cinema assistir Hexed', 'movieInfo')"
+                  class="btn-tap w-full p-4 rounded-2xl text-left flex items-center gap-4 bg-slate-800/80 hover:bg-pink-900/35 border border-pink-400/35 transition"
+                >
+                  <span class="w-12 h-12 rounded-xl bg-purple-500/25 flex items-center justify-center text-2xl shrink-0">
+                    🎬
+                  </span>
+                  <div>
+                    <div class="font-bold text-base text-white">Cinema assistir Hexed</div>
+                    <div class="text-xs text-pink-200/85">Ver detalhes do filme →</div>
+                  </div>
+                </button>
+              </div>
+            </div>
+          `;
+          break;
 
-        // Classe da Partícula
-        class Particula {
-            constructor() {
-                this.reset();
-            }
+        case 'movieInfo':
+          stepContentEl.innerHTML = `
+            <div class="flex flex-col">
+              <div class="flex items-center gap-3 mb-4">
+                <span class="w-11 h-11 rounded-xl bg-gradient-to-br from-pink-500 to-purple-600 flex items-center justify-center text-xl shadow-md">
+                  🎬
+                </span>
+                <div>
+                  <span class="text-xs font-semibold uppercase tracking-wider text-pink-300">
+                    Sinopse do Filme
+                  </span>
+                  <h2 class="text-2xl font-extrabold text-white">
+                    Hexed
+                  </h2>
+                </div>
+              </div>
 
-            reset() {
-                this.x = Math.random() * width;
-                this.y = height + Math.random() * 100;
-                this.size = Math.random() * 2 + 1;
-                this.speedY = Math.random() * 0.8 + 0.2;
-                this.speedX = (Math.random() - 0.5) * 0.4;
-                this.opacity = Math.random() * 0.5 + 0.2;
-                this.isHeart = Math.random() > 0.85; // 15% das partículas são corações sutis
-            }
+              <div class="rounded-2xl bg-indigo-950/70 border border-purple-400/25 p-4 sm:p-5 mb-6">
+                <p class="text-sm sm:text-base text-slate-200 leading-relaxed">
+                  A trama acompanha Billie Doe, uma adolescente impulsiva, desajeitada e considerada "estranha" que tenta entender por que não se encaixa. A vida dela muda por completo quando ela desperta poderes mágicos latentes — um segredo que sua mãe, Alice Doe, tentou esconder por muito tempo para protegê-la.
+                </p>
+              </div>
 
-            update() {
-                this.y -= this.speedY;
-                this.x += this.speedX;
+              <button
+                type="button"
+                onclick="goToStep('time')"
+                class="btn-tap w-full py-4 px-6 rounded-2xl font-bold text-base text-white bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 hover:from-pink-400 hover:to-purple-500 shadow-lg shadow-purple-600/25"
+              >
+                Escolher horário →
+              </button>
+            </div>
+          `;
+          break;
 
-                if (this.y < -10) {
-                    this.reset();
-                }
-            }
+        case 'time':
+          stepContentEl.innerHTML = `
+            <div class="flex flex-col items-center text-center">
+              <div class="w-14 h-14 rounded-2xl bg-purple-500/20 border border-purple-400/30 flex items-center justify-center mb-5">
+                <span class="text-2xl" role="img" aria-label="Trem">🚉</span>
+              </div>
 
-            draw() {
-                ctx.save();
-                ctx.globalAlpha = this.opacity;
-                
-                if (this.isHeart) {
-                    // Desenha um pequeno coração discreto
-                    ctx.fillStyle = '#f43f5e';
-                    ctx.font = `${this.size * 4}px sans-serif`;
-                    ctx.fillText('♥', this.x, this.y);
-                } else {
-                    // Desenha uma partícula circular comum
-                    ctx.fillStyle = '#94a3b8';
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-                
-                ctx.restore();
-            }
-        }
+              <h2 class="text-xl sm:text-2xl font-extrabold text-white leading-snug mb-2">
+                Horário do encontro no trem Santo amaro
+              </h2>
+              <p class="text-sm text-slate-300/80 mb-6">
+                Qual horário fica melhor para você?
+              </p>
 
-        // Criar Array de Partículas
-        const particulas = Array.from({ length: 45 }, () => new Particula());
+              <div class="w-full grid grid-cols-2 gap-3.5">
+                ${['10h', '11h', '12h', '13h']
+                  .map(
+                    (hour) => `
+                    <button
+                      type="button"
+                      onclick="selectOption('time', '${hour}', 'restaurant')"
+                      class="btn-tap py-4 px-5 rounded-2xl font-bold text-lg text-white bg-slate-800/85 hover:bg-gradient-to-r hover:from-pink-500 hover:to-purple-600 border border-purple-400/30 shadow-md transition"
+                    >
+                      ${hour}
+                    </button>
+                  `
+                  )
+                  .join('')}
+              </div>
+            </div>
+          `;
+          break;
 
-        // Loop de Animação
-        function animar() {
-            ctx.clearRect(0, 0, width, height);
-            particulas.forEach(p => {
-                p.update();
-                p.draw();
-            });
-            requestAnimationFrame(animar);
-        }
+        case 'restaurant':
+          stepContentEl.innerHTML = `
+            <div class="flex flex-col items-center text-center">
+              <div class="w-14 h-14 rounded-2xl bg-pink-500/20 border border-pink-400/30 flex items-center justify-center mb-5">
+                <span class="text-2xl" role="img" aria-label="Restaurante">🍽️</span>
+              </div>
 
-        // Iniciar Animação no Carregamento
-        window.onload = function() {
-            animar();
-        };
-    </script>
-</body>
-</html>
-```
+              <h2 class="text-xl sm:text-2xl font-extrabold text-white leading-snug mb-3">
+                Informações do restaurante q vamos comer
+              </h2>
+
+              <div class="w-full rounded-2xl bg-indigo-950/75 border border-pink-400/25 p-5 my-4">
+                <p class="text-xs uppercase tracking-wider font-semibold text-pink-300 mb-1">
+                  Local escolhido
+                </p>
+                <h3 class="text-xl font-bold text-white mb-4">
+                  Restaurante América
+                </h3>
+
+                <a
+                  href="https://maps.app.goo.gl/itYUcCh8tvpJAD4z7"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn-tap inline-flex items-center justify-center gap-2 w-full py-3.5 px-4 rounded-xl font-semibold text-sm text-pink-100 bg-purple-600/40 hover:bg-purple-600/60 border border-purple-400/40 transition"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-pink-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  Abrir localização no Google Maps
+                </a>
+              </div>
+
+              <button
+                type="button"
+                onclick="goToStep('summary')"
+                class="btn-tap w-full mt-2 py-4 px-6 rounded-2xl font-bold text-base text-white bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 hover:from-pink-400 hover:to-purple-500 shadow-lg shadow-pink-500/25"
+              >
+                Ver resumo final →
+              </button>
+            </div>
+          `;
+          break;
+
+        case 'summary':
+          const whatsappHref = buildWhatsAppUrl();
+          stepContentEl.innerHTML = `
+            <div class="flex flex-col">
+              <div class="text-center mb-5">
+                <div class="w-14 h-14 mx-auto rounded-2xl bg-gradient-to-br from-pink-500/25 to-purple-600/30 border border-pink-400/35 flex items-center justify-center mb-4">
+                  <span class="text-2xl" role="img" aria-label="Comemoração">🎉</span>
+                </div>
+
+                <h2 class="text-xl sm:text-2xl font-extrabold text-white leading-snug">
+                  Está marcado, me mande as respostas no Whatsapp
+                </h2>
+              </div>
+
+              
