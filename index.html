@@ -4,29 +4,147 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Convite Especial • Emilly</title>
-  <!-- Tailwind CSS via CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Fonts: Inter & Plus Jakarta Sans -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
   <style>
+    /* Reset e Base */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --pink-light: #f472b6;
+      --pink-main: #ec4899;
+      --purple-light: #a855f7;
+      --purple-dark: #7e22ce;
+      --blue-deep: #0f172a;
+      --blue-indigo: #1e1b4b;
+      --text-primary: #f8fafc;
+      --text-secondary: #cbd5e1;
+      --glass-bg: rgba(15, 23, 42, 0.78);
+      --glass-border: rgba(168, 85, 247, 0.28);
+    }
+
     body {
-      font-family: 'Inter', sans-serif;
-      background-color: #0f172a;
-      color: #f8fafc;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--blue-deep);
+      background-image:
+        radial-gradient(circle at 15% 15%, rgba(236, 72, 153, 0.26), transparent 45%),
+        radial-gradient(circle at 85% 25%, rgba(168, 85, 247, 0.28), transparent 50%),
+        radial-gradient(circle at 50% 95%, rgba(30, 27, 75, 0.95), var(--blue-deep) 80%);
+      color: var(--text-primary);
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 16px;
       overflow-x: hidden;
+      -webkit-tap-highlight-color: transparent;
     }
 
-    h1, h2, .font-display {
-      font-family: 'Plus Jakarta Sans', sans-serif;
+    /* Cabeçalho e Progresso */
+    .header {
+      width: 100%;
+      max-width: 440px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 10;
     }
 
-    /* Animação suave de entrada dos cartões */
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      padding: 0 4px;
+    }
+
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #fbcfe8;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+
+    .btn-back:hover {
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    .btn-back:active {
+      transform: scale(0.96);
+    }
+
+    .btn-back.hidden {
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .step-label {
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: #e9d5ff;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 6px;
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 9999px;
+      overflow: hidden;
+      padding: 1px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 14%;
+      border-radius: 9999px;
+      background: linear-gradient(90deg, var(--pink-main), var(--purple-light), #6366f1);
+      transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* Cartão Principal Glassmorphism */
+    .main-wrapper {
+      width: 100%;
+      max-width: 440px;
+      margin: auto 0;
+      padding: 16px 0;
+      z-index: 10;
+    }
+
+    .glass-card {
+      width: 100%;
+      border-radius: 28px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 24px 60px -15px rgba(126, 34, 206, 0.42);
+      padding: 28px 24px;
+    }
+
+    @media (min-width: 480px) {
+      .glass-card {
+        padding: 36px 32px;
+      }
+    }
+
+    /* Animação de Transição */
     @keyframes fadeSlideUp {
       0% {
         opacity: 0;
-        transform: translateY(18px) scale(0.98);
+        transform: translateY(16px) scale(0.985);
       }
       100% {
         opacity: 1;
@@ -34,78 +152,373 @@
       }
     }
 
-    .animate-step {
-      animation: fadeSlideUp 0.42s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    .step-animate {
+      animation: fadeSlideUp 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
-    /* Brilho decorativo sutil no fundo */
-    .bg-glow {
-      background:
-        radial-gradient(circle at 15% 15%, rgba(236, 72, 153, 0.22), transparent 45%),
-        radial-gradient(circle at 85% 25%, rgba(147, 51, 234, 0.25), transparent 50%),
-        radial-gradient(circle at 50% 90%, rgba(30, 27, 75, 0.9), #0f172a 75%);
+    /* Tipografia e Elementos Internos */
+    .center-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
     }
 
-    /* Efeito de toque nos botões */
-    .btn-tap {
-      transition: transform 0.16s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    .icon-badge {
+      width: 60px;
+      height: 60px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(236, 72, 153, 0.22), rgba(126, 34, 206, 0.32));
+      border: 1px solid rgba(244, 114, 182, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.15);
     }
-    .btn-tap:active {
+
+    .pill-tag {
+      display: inline-block;
+      padding: 5px 14px;
+      border-radius: 9999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(236, 72, 153, 0.16);
+      color: #f9a8d4;
+      border: 1px solid rgba(236, 72, 153, 0.3);
+      margin-bottom: 14px;
+    }
+
+    .title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      line-height: 1.3;
+      color: #ffffff;
+      margin-bottom: 10px;
+    }
+
+    @media (min-width: 480px) {
+      .title {
+        font-size: 1.65rem;
+      }
+    }
+
+    .subtitle {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+
+    .highlight-pink {
+      color: #f9a8d4;
+      font-weight: 700;
+    }
+
+    /* Botões */
+    .btn-primary {
+      width: 100%;
+      padding: 16px 22px;
+      border: none;
+      border-radius: 18px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #ffffff;
+      background: linear-gradient(135deg, var(--pink-main), var(--purple-dark));
+      box-shadow: 0 10px 25px -5px rgba(236, 72, 153, 0.4);
+      cursor: pointer;
+      transition: transform 0.16s ease, box-shadow 0.2s ease, filter 0.2s ease;
+    }
+
+    .btn-primary:hover {
+      filter: brightness(1.08);
+      box-shadow: 0 14px 30px -5px rgba(236, 72, 153, 0.5);
+    }
+
+    .btn-primary:active {
       transform: scale(0.97);
+    }
+
+    .btn-secondary {
+      width: 100%;
+      padding: 16px 22px;
+      border-radius: 18px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fce7f3;
+      background: rgba(30, 27, 75, 0.85);
+      border: 1px solid rgba(244, 114, 182, 0.35);
+      cursor: pointer;
+      transition: transform 0.16s ease, background 0.2s ease;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(126, 34, 206, 0.38);
+    }
+
+    .btn-secondary:active {
+      transform: scale(0.97);
+    }
+
+    .stack-buttons {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .grid-2 {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .btn-grid {
+      padding: 16px 12px;
+      border-radius: 18px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #ffffff;
+      background: rgba(30, 41, 59, 0.85);
+      border: 1px solid rgba(168, 85, 247, 0.32);
+      cursor: pointer;
+      transition: transform 0.16s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .btn-grid:hover {
+      background: linear-gradient(135deg, rgba(236, 72, 153, 0.85), rgba(126, 34, 206, 0.9));
+      border-color: rgba(244, 114, 182, 0.6);
+    }
+
+    .btn-grid:active {
+      transform: scale(0.97);
+    }
+
+    /* Cartões de Opção de Atividade */
+    .option-card {
+      width: 100%;
+      padding: 16px;
+      border-radius: 20px;
+      background: rgba(30, 41, 59, 0.78);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-align: left;
+      color: #ffffff;
+      cursor: pointer;
+      transition: transform 0.16s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .option-card:hover {
+      background: rgba(126, 34, 206, 0.32);
+      border-color: rgba(244, 114, 182, 0.55);
+    }
+
+    .option-card:active {
+      transform: scale(0.98);
+    }
+
+    .option-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: rgba(236, 72, 153, 0.18);
+      border: 1px solid rgba(244, 114, 182, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .option-title {
+      font-size: 0.98rem;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 3px;
+    }
+
+    .option-desc {
+      font-size: 0.8rem;
+      color: #cbd5e1;
+    }
+
+    /* Caixa de Sinopse e Restaurante */
+    .info-box {
+      width: 100%;
+      border-radius: 20px;
+      background: rgba(30, 27, 75, 0.75);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      padding: 18px;
+      margin-bottom: 22px;
+      text-align: left;
+    }
+
+    .info-box p {
+      font-size: 0.93rem;
+      line-height: 1.6;
+      color: #e2e8f0;
+    }
+
+    .btn-map {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 13px 16px;
+      margin-top: 14px;
+      border-radius: 14px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      color: #fce7f3;
+      background: rgba(168, 85, 247, 0.28);
+      border: 1px solid rgba(244, 114, 182, 0.4);
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+
+    .btn-map:hover {
+      background: rgba(168, 85, 247, 0.45);
+    }
+
+    .btn-map:active {
+      transform: scale(0.98);
+    }
+
+    /* Resumo Final */
+    .summary-list {
+      width: 100%;
+      border-radius: 20px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(168, 85, 247, 0.32);
+      padding: 16px 18px;
+      margin-bottom: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .summary-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+      font-size: 0.88rem;
+    }
+
+    .summary-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .summary-key {
+      color: #94a3b8;
+      flex-shrink: 0;
+    }
+
+    .summary-val {
+      color: #f8fafc;
+      font-weight: 700;
+      text-align: right;
+    }
+
+    .summary-val.accent {
+      color: #f9a8d4;
+    }
+
+    .btn-whatsapp {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 16px 20px;
+      border-radius: 18px;
+      font-size: 1rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: #ffffff;
+      background: linear-gradient(135deg, #10b981, #059669);
+      box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.4);
+      transition: transform 0.16s ease, filter 0.2s ease;
+    }
+
+    .btn-whatsapp:hover {
+      filter: brightness(1.07);
+    }
+
+    .btn-whatsapp:active {
+      transform: scale(0.97);
+    }
+
+    .btn-restart {
+      margin-top: 14px;
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 12px;
+      background: transparent;
+      color: #94a3b8;
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: color 0.2s ease, background 0.2s ease;
+    }
+
+    .btn-restart:hover {
+      color: #fbcfe8;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    /* Rodapé */
+    .footer {
+      width: 100%;
+      max-width: 440px;
+      text-align: center;
+      font-size: 0.75rem;
+      color: rgba(203, 213, 225, 0.65);
+      z-index: 10;
     }
   </style>
 </head>
-<body class="bg-glow min-h-screen flex flex-col justify-between items-center px-4 py-6 sm:py-10 selection:bg-pink-500 selection:text-white">
+<body>
 
-  <!-- Cabeçalho discreto com barra de progresso -->
-  <header class="w-full max-w-md flex flex-col gap-3 z-10">
-    <div class="flex items-center justify-between text-xs text-slate-300/80 px-1">
-      <button
-        id="btn-back"
-        type="button"
-        onclick="goBack()"
-        class="invisible inline-flex items-center gap-1.5 py-1.5 px-3 rounded-full bg-white/5 hover:bg-white/10 text-pink-200 font-medium transition focus:outline-none focus:ring-2 focus:ring-pink-400/50"
-        aria-label="Voltar para a etapa anterior"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+  <!-- Cabeçalho com botão voltar e barra de progresso -->
+  <header class="header">
+    <div class="header-top">
+      <button id="btn-back" type="button" class="btn-back hidden" onclick="goBack()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"></polyline>
         </svg>
         Voltar
       </button>
-
-      <span id="step-indicator" class="font-medium tracking-wide text-purple-200/80">
-        Etapa 1
-      </span>
+      <span id="step-indicator" class="step-label">Etapa 1</span>
     </div>
-
-    <!-- Barra de progresso -->
-    <div class="w-full h-1.5 bg-slate-800/90 rounded-full overflow-hidden p-[1px]">
-      <div
-        id="progress-bar"
-        class="h-full rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-400 transition-all duration-500 ease-out"
-        style="width: 14%;"
-      ></div>
+    <div class="progress-track">
+      <div id="progress-bar" class="progress-fill"></div>
     </div>
   </header>
 
-  <!-- Container Principal (Cartão Interativo) -->
-  <main class="w-full max-w-md my-auto py-6 z-10">
-    <div
-      id="card-container"
-      class="w-full rounded-3xl bg-slate-900/75 backdrop-blur-xl border border-purple-500/25 shadow-[0_20px_60px_-15px_rgba(147,51,234,0.35)] p-6 sm:p-8"
-    >
-      <!-- Conteúdo dinâmico injetado via JS -->
-      <div id="step-content" class="animate-step"></div>
-    </div>
+  <!-- Cartão Principal -->
+  <main class="main-wrapper">
+    <section class="glass-card">
+      <div id="step-content" class="step-animate"></div>
+    </section>
   </main>
 
-  <!-- Rodapé sutil -->
-  <footer class="w-full max-w-md text-center text-xs text-slate-400/70 z-10">
-    Feito especialmente para você ✨
+  <!-- Rodapé -->
+  <footer class="footer">
+    Feito especialmente para você
   </footer>
 
   <script>
-    // Estado da aplicação armazenando as escolhas e o histórico de navegação
+    // Estado do convite
     const state = {
       currentStep: 'welcome',
       history: [],
@@ -117,123 +530,112 @@
       }
     };
 
-    // Número do WhatsApp de destino
     const WHATSAPP_NUMBER = '5511993998332';
 
-    // Elementos do DOM
     const stepContentEl = document.getElementById('step-content');
     const btnBackEl = document.getElementById('btn-back');
     const progressBarEl = document.getElementById('progress-bar');
     const stepIndicatorEl = document.getElementById('step-indicator');
 
-    /**
-     * Calcula a porcentagem de progresso de acordo com o fluxo atual
-     */
-    function getProgressInfo(step) {
-      const hasMovie = state.choices.activity === 'Cinema assistir Hexed';
-      const flow = hasMovie
+    // Ícones SVG inline para garantir renderização perfeita sem dependências
+    const icons = {
+      sparkle: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#f9a8d4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8a2 2 0 0 0 1.3 1.3L21 12l-5.8 1.9a2 2 0 0 0-1.3 1.3L12 21l-1.9-5.8a2 2 0 0 0-1.3-1.3L3 12l5.8-1.9a2 2 0 0 0 1.3-1.3L12 3z"/></svg>`,
+      heart: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#f472b6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`,
+      calendar: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#e9d5ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`,
+      compass: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#f9a8d4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>`,
+      tree: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f9a8d4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3L4 15h16L12 3z"/><line x1="12" y1="15" x2="12" y2="21"/></svg>`,
+      film: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#d8b4fe" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></svg>`,
+      clock: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d8b4fe" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+      utensils: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#f9a8d4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>`,
+      pin: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`,
+      check: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#6ee7b7" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`,
+      whatsapp: `<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824z"/></svg>`
+    };
+
+    function getProgress(step) {
+      const hasCinema = state.choices.activity === 'Cinema no Shopping Villa Lobos - Hexed';
+      const flow = hasCinema
         ? ['welcome', 'accept', 'date', 'activity', 'movieInfo', 'time', 'restaurant', 'summary']
         : ['welcome', 'accept', 'date', 'activity', 'time', 'restaurant', 'summary'];
 
-      const index = flow.indexOf(step);
-      const current = index >= 0 ? index + 1 : 1;
+      const idx = flow.indexOf(step);
+      const current = idx >= 0 ? idx + 1 : 1;
       const total = flow.length;
       const percent = Math.round((current / total) * 100);
-
       return { current, total, percent };
     }
 
-    /**
-     * Navega para uma nova etapa e salva a anterior no histórico
-     */
     function goToStep(nextStep) {
-      if (state.currentStep !== nextStep) {
-        state.history.push(state.currentStep);
-        state.currentStep = nextStep;
-        renderStep();
-      }
+      state.history.push(state.currentStep);
+      state.currentStep = nextStep;
+      renderStep();
     }
 
-    /**
-     * Volta para a etapa anterior no histórico
-     */
-    function goBack() {
-      if (state.history.length > 0) {
-        state.currentStep = state.history.pop();
-        renderStep();
-      }
-    }
-
-    /**
-     * Registra uma escolha e avança para o próximo passo
-     */
     function selectOption(field, value, nextStep) {
       state.choices[field] = value;
       goToStep(nextStep);
     }
 
-    /**
-     * Gera o link do WhatsApp com todas as escolhas formatadas
-     */
-    function buildWhatsAppUrl() {
-      const { accepted, date, activity, time } = state.choices;
-      const message = [
-        `Oi! Aceitei o convite (${accepted}) ✨`,
-        ``,
-        `📅 *Sábado escolhido:* ${date}`,
-        `🎯 *Rolê:* ${activity}`,
-        `🚉 *Horário no trem Santo Amaro:* ${time}`,
-        `🍽️ *Almoço:* Restaurante América`,
-        `⛪ *18h:* Culto`
-      ].join('\n');
-
-      return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    function goBack() {
+      if (state.history.length === 0) return;
+      state.currentStep = state.history.pop();
+      renderStep();
     }
 
-    /**
-     * Renderiza o conteúdo HTML da etapa atual com animação
-     */
+    function restartInvite() {
+      state.currentStep = 'welcome';
+      state.history = [];
+      state.choices = { accepted: '', date: '', activity: '', time: '' };
+      renderStep();
+    }
+
+    function buildWhatsAppUrl() {
+      const { accepted, date, activity, time } = state.choices;
+      const text = [
+        `Oi! Aceitei o convite (${accepted})`,
+        ``,
+        `Data escolhida: ${date}`,
+        `Horário no trem Santo Amaro: ${time}`,
+        `Atividade: ${activity}`,
+        `Restaurante: Restaurante América`,
+        `18h - Culto`
+      ].join('\n');
+
+      return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+    }
+
     function renderStep() {
-      const { current, total, percent } = getProgressInfo(state.currentStep);
-
-      // Atualiza barra de progresso e indicador
-      progressBarEl.style.width = `${percent}%`;
-      stepIndicatorEl.textContent = `Passo ${current} de ${total}`;
-
-      // Controla visibilidade do botão Voltar
+      // Atualiza botão voltar
       if (state.history.length > 0) {
-        btnBackEl.classList.remove('invisible');
+        btnBackEl.classList.remove('hidden');
       } else {
-        btnBackEl.classList.add('invisible');
+        btnBackEl.classList.add('hidden');
       }
 
-      // Reinicia animação do container
-      stepContentEl.classList.remove('animate-step');
-      void stepContentEl.offsetWidth; // força reflow
-      stepContentEl.classList.add('animate-step');
+      // Atualiza barra de progresso
+      const { current, total, percent } = getProgress(state.currentStep);
+      progressBarEl.style.width = `${percent}%`;
+      stepIndicatorEl.textContent = `Etapa ${current} de ${total}`;
+
+      // Reinicia animação
+      stepContentEl.classList.remove('step-animate');
+      void stepContentEl.offsetWidth;
+      stepContentEl.classList.add('step-animate');
 
       switch (state.currentStep) {
         case 'welcome':
           stepContentEl.innerHTML = `
-            <div class="flex flex-col items-center text-center">
-              <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-pink-500/20 to-purple-600/30 border border-pink-400/30 flex items-center justify-center mb-6 shadow-inner">
-                <span class="text-3xl" role="img" aria-label="Brilhos">🎀</span>
-              </div>
-
-              <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-pink-500/15 text-pink-300 border border-pink-500/25 mb-4">
-                Convite Especial
-              </span>
-
-              <h1 class="text-2xl sm:text-3xl font-extrabold text-white leading-snug mb-6">
+            <div class="center-col">
+              <div class="icon-badge">${icons.sparkle}</div>
+              <span class="pill-tag">Convite Especial</span>
+              <h1 class="title">
                 Oi Emilly, esse site é um convite para a gente passar um tempo juntos antes do culto
               </h1>
-
-              <button
-                type="button"
-                onclick="goToStep('accept')"
-                class="btn-tap w-full py-4 px-6 rounded-2xl font-bold text-base text-white bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 hover:from-pink-400 hover:to-purple-500 shadow-lg shadow-pink-500/25 focus:outline-none focus:ring-2 focus:ring-pink-400"
-              >
-                Continuar →
+              <p class="subtitle">
+                Preparei algumas opções para você escolher como prefere o nosso sábado.
+              </p>
+              <button type="button" class="btn-primary" onclick="goToStep('accept')">
+                Continuar
               </button>
             </div>
           `;
@@ -241,292 +643,9 @@
 
         case 'accept':
           stepContentEl.innerHTML = `
-            <div class="flex flex-col items-center text-center">
-              <div class="w-14 h-14 rounded-2xl bg-purple-500/20 border border-purple-400/30 flex items-center justify-center mb-5">
-                <span class="text-2xl" role="img" aria-label="Coração">💜</span>
-              </div>
-
-              <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-2">
-                Vc aceitas?
-              </h2>
-              <p class="text-sm text-slate-300/80 mb-7">
-                Escolha uma das opções abaixo para continuar
-              </p>
-
-              <div class="w-full flex flex-col gap-3.5">
-                <button
-                  type="button"
-                  onclick="selectOption('accepted', 'Sim', 'date')"
-                  class="btn-tap w-full py-4 px-6 rounded-2xl font-bold text-base text-white bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-400 hover:to-purple-500 shadow-lg shadow-pink-500/20"
-                >
-                  Sim
-                </button>
-
-                <button
-                  type="button"
-                  onclick="selectOption('accepted', 'Com certeza', 'date')"
-                  class="btn-tap w-full py-4 px-6 rounded-2xl font-bold text-base text-pink-100 bg-indigo-950/90 hover:bg-purple-900/60 border border-pink-400/35 shadow-md"
-                >
-                  Com certeza ✨
-                </button>
-              </div>
-            </div>
-          `;
-          break;
-
-        case 'date':
-          stepContentEl.innerHTML = `
-            <div class="flex flex-col items-center text-center">
-              <div class="w-14 h-14 rounded-2xl bg-pink-500/20 border border-pink-400/30 flex items-center justify-center mb-5">
-                <span class="text-2xl" role="img" aria-label="Calendário">📅</span>
-              </div>
-
-              <h2 class="text-xl sm:text-2xl font-extrabold text-white leading-snug mb-7">
-                Q bom que vc escolheu por livre e espontânea vontade, preciso saber qual sábado vc prefere?
-              </h2>
-
-              <div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                <button
-                  type="button"
-                  onclick="selectOption('date', '28/11', 'activity')"
-                  class="btn-tap py-4 px-6 rounded-2xl font-bold text-lg text-white bg-gradient-to-br from-pink-500/90 to-purple-700/90 hover:from-pink-500 hover:to-purple-600 border border-pink-300/30 shadow-lg shadow-purple-900/40"
-                >
-                  28/11
-                </button>
-
-                <button
-                  type="button"
-                  onclick="selectOption('date', '03/12', 'activity')"
-                  class="btn-tap py-4 px-6 rounded-2xl font-bold text-lg text-white bg-gradient-to-br from-purple-600/90 to-indigo-800/90 hover:from-purple-500 hover:to-indigo-700 border border-purple-300/30 shadow-lg shadow-indigo-950/50"
-                >
-                  03/12
-                </button>
-              </div>
-            </div>
-          `;
-          break;
-
-        case 'activity':
-          stepContentEl.innerHTML = `
-            <div class="flex flex-col items-center text-center">
-              <div class="w-14 h-14 rounded-2xl bg-indigo-500/20 border border-indigo-400/30 flex items-center justify-center mb-5">
-                <span class="text-2xl" role="img" aria-label="Estrela">🌟</span>
-              </div>
-
-              <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-2">
-                Oq vc quer fazer?
-              </h2>
-              <p class="text-sm text-slate-300/80 mb-7">
-                Sábado dia <span class="text-pink-300 font-semibold">${state.choices.date}</span>
-              </p>
-
-              <div class="w-full flex flex-col gap-3.5">
-                <button
-                  type="button"
-                  onclick="selectOption('activity', 'Parque Villa Lobos', 'time')"
-                  class="btn-tap w-full p-4 rounded-2xl text-left flex items-center gap-4 bg-slate-800/80 hover:bg-purple-900/40 border border-purple-400/30 transition"
-                >
-                  <span class="w-12 h-12 rounded-xl bg-pink-500/20 flex items-center justify-center text-2xl shrink-0">
-                    🌳
-                  </span>
-                  <div>
-                    <div class="font-bold text-base text-white">Parque Villa Lobos</div>
-                    <div class="text-xs text-slate-300/80">Passeio ao ar livre e tranquilo</div>
-                  </div>
-                </button>
-
-                <button
-                  type="button"
-                  onclick="selectOption('activity', 'Cinema assistir Hexed', 'movieInfo')"
-                  class="btn-tap w-full p-4 rounded-2xl text-left flex items-center gap-4 bg-slate-800/80 hover:bg-pink-900/35 border border-pink-400/35 transition"
-                >
-                  <span class="w-12 h-12 rounded-xl bg-purple-500/25 flex items-center justify-center text-2xl shrink-0">
-                    🎬
-                  </span>
-                  <div>
-                    <div class="font-bold text-base text-white">Cinema assistir Hexed</div>
-                    <div class="text-xs text-pink-200/85">Ver detalhes do filme →</div>
-                  </div>
-                </button>
-              </div>
-            </div>
-          `;
-          break;
-
-        case 'movieInfo':
-          stepContentEl.innerHTML = `
-            <div class="flex flex-col">
-              <div class="flex items-center gap-3 mb-4">
-                <span class="w-11 h-11 rounded-xl bg-gradient-to-br from-pink-500 to-purple-600 flex items-center justify-center text-xl shadow-md">
-                  🎬
-                </span>
-                <div>
-                  <span class="text-xs font-semibold uppercase tracking-wider text-pink-300">
-                    Sinopse do Filme
-                  </span>
-                  <h2 class="text-2xl font-extrabold text-white">
-                    Hexed
-                  </h2>
-                </div>
-              </div>
-
-              <div class="rounded-2xl bg-indigo-950/70 border border-purple-400/25 p-4 sm:p-5 mb-6">
-                <p class="text-sm sm:text-base text-slate-200 leading-relaxed">
-                  A trama acompanha Billie Doe, uma adolescente impulsiva, desajeitada e considerada "estranha" que tenta entender por que não se encaixa. A vida dela muda por completo quando ela desperta poderes mágicos latentes — um segredo que sua mãe, Alice Doe, tentou esconder por muito tempo para protegê-la.
-                </p>
-              </div>
-
-              <button
-                type="button"
-                onclick="goToStep('time')"
-                class="btn-tap w-full py-4 px-6 rounded-2xl font-bold text-base text-white bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 hover:from-pink-400 hover:to-purple-500 shadow-lg shadow-purple-600/25"
-              >
-                Escolher horário →
-              </button>
-            </div>
-          `;
-          break;
-
-        case 'time':
-          stepContentEl.innerHTML = `
-            <div class="flex flex-col items-center text-center">
-              <div class="w-14 h-14 rounded-2xl bg-purple-500/20 border border-purple-400/30 flex items-center justify-center mb-5">
-                <span class="text-2xl" role="img" aria-label="Trem">🚉</span>
-              </div>
-
-              <h2 class="text-xl sm:text-2xl font-extrabold text-white leading-snug mb-2">
-                Horário do encontro no trem Santo amaro
-              </h2>
-              <p class="text-sm text-slate-300/80 mb-6">
-                Qual horário fica melhor para você?
-              </p>
-
-              <div class="w-full grid grid-cols-2 gap-3.5">
-                ${['10h', '11h', '12h', '13h']
-                  .map(
-                    (hour) => `
-                    <button
-                      type="button"
-                      onclick="selectOption('time', '${hour}', 'restaurant')"
-                      class="btn-tap py-4 px-5 rounded-2xl font-bold text-lg text-white bg-slate-800/85 hover:bg-gradient-to-r hover:from-pink-500 hover:to-purple-600 border border-purple-400/30 shadow-md transition"
-                    >
-                      ${hour}
-                    </button>
-                  `
-                  )
-                  .join('')}
-              </div>
-            </div>
-          `;
-          break;
-
-        case 'restaurant':
-          stepContentEl.innerHTML = `
-            <div class="flex flex-col items-center text-center">
-              <div class="w-14 h-14 rounded-2xl bg-pink-500/20 border border-pink-400/30 flex items-center justify-center mb-5">
-                <span class="text-2xl" role="img" aria-label="Restaurante">🍽️</span>
-              </div>
-
-              <h2 class="text-xl sm:text-2xl font-extrabold text-white leading-snug mb-3">
-                Informações do restaurante q vamos comer
-              </h2>
-
-              <div class="w-full rounded-2xl bg-indigo-950/75 border border-pink-400/25 p-5 my-4">
-                <p class="text-xs uppercase tracking-wider font-semibold text-pink-300 mb-1">
-                  Local escolhido
-                </p>
-                <h3 class="text-xl font-bold text-white mb-4">
-                  Restaurante América
-                </h3>
-
-                <a
-                  href="https://maps.app.goo.gl/itYUcCh8tvpJAD4z7"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="btn-tap inline-flex items-center justify-center gap-2 w-full py-3.5 px-4 rounded-xl font-semibold text-sm text-pink-100 bg-purple-600/40 hover:bg-purple-600/60 border border-purple-400/40 transition"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-pink-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                  Abrir localização no Google Maps
-                </a>
-              </div>
-
-              <button
-                type="button"
-                onclick="goToStep('summary')"
-                class="btn-tap w-full mt-2 py-4 px-6 rounded-2xl font-bold text-base text-white bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 hover:from-pink-400 hover:to-purple-500 shadow-lg shadow-pink-500/25"
-              >
-                Ver resumo final →
-              </button>
-            </div>
-          `;
-          break;
-
-        case 'summary':
-          const whatsappHref = buildWhatsAppUrl();
-          stepContentEl.innerHTML = `
-            <div class="flex flex-col">
-              <div class="text-center mb-5">
-                <div class="w-14 h-14 mx-auto rounded-2xl bg-gradient-to-br from-pink-500/25 to-purple-600/30 border border-pink-400/35 flex items-center justify-center mb-4">
-                  <span class="text-2xl" role="img" aria-label="Comemoração">🎉</span>
-                </div>
-
-                <h2 class="text-xl sm:text-2xl font-extrabold text-white leading-snug">
-                  Está marcado, me mande as respostas no Whatsapp
-                </h2>
-              </div>
-
-              <!-- Cartão de resumo das escolhas -->
-              <div class="rounded-2xl bg-slate-950/70 border border-purple-500/30 p-4 sm:p-5 space-y-3 mb-6 text-sm">
-                <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
-                  <span class="text-slate-400">📅 Data</span>
-                  <span class="font-bold text-pink-300">Sábado, ${state.choices.date}</span>
-                </div>
-
-                <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
-                  <span class="text-slate-400">🚉 Horário escolhido</span>
-                  <span class="font-bold text-white">${state.choices.time} (Trem Santo Amaro)</span>
-                </div>
-
-                <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
-                  <span class="text-slate-400">🎯 Rolê</span>
-                  <span class="font-bold text-purple-200 text-right">${state.choices.activity}</span>
-                </div>
-
-                <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
-                  <span class="text-slate-400">🍽️ Restaurante</span>
-                  <span class="font-bold text-white">Restaurante América</span>
-                </div>
-
-                <div class="flex items-center justify-between pt-0.5">
-                  <span class="text-slate-400">⛪ Depois</span>
-                  <span class="font-bold text-pink-200">18h - culto</span>
-                </div>
-              </div>
-
-              <!-- Botão direto para o WhatsApp -->
-              <a
-                href="${whatsappHref}"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn-tap w-full py-4 px-6 rounded-2xl font-bold text-base text-white bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-400 hover:to-green-500 shadow-lg shadow-emerald-600/30 flex items-center justify-center gap-2.5 text-center"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                  <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824z"/>
-                </svg>
-                Enviar respostas no WhatsApp
-              </a>
-            </div>
-          `;
-          break;
-      }
-    }
-
-    // Inicializa a primeira tela ao carregar
-    renderStep();
-  </script>
-</body>
-</html>
-```
+            <div class="center-col">
+              <div class="icon-badge">${icons.heart}</div>
+              <h2 class="title">Você aceita?</h2>
+              <p class="subtitle">Escolha uma das opções abaixo para seguirmos:</p>
+              <div class="stack-buttons">
+                <button type="button" class="btn-primary" onclick="selectOption('accepted
