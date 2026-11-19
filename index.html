@@ -134,4 +134,319 @@
       border: 1px solid rgba(244, 114, 182, 0.32);
       background: rgba(15, 23, 42, 0.75);
       color: var(--text);
-      font-size: 
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      transition: transform 0.18s ease, background 0.2s ease, border-color 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    button.choice:hover, a.btn-link:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(135deg, rgba(244, 114, 182, 0.28), rgba(168, 85, 247, 0.28));
+      border-color: var(--pink);
+    }
+
+    button.primary {
+      background: linear-gradient(135deg, var(--pink), var(--purple));
+      border: none;
+      color: #fff;
+      margin-top: 8px;
+    }
+
+    button.primary:hover {
+      filter: brightness(1.08);
+    }
+
+    .info-box {
+      background: rgba(10, 15, 36, 0.72);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 18px;
+    }
+
+    .info-box h3 {
+      font-size: 17px;
+      color: var(--pink-soft);
+      margin-bottom: 8px;
+    }
+
+    .summary-list {
+      list-style: none;
+      display: grid;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .summary-list li {
+      background: rgba(10, 15, 36, 0.72);
+      border: 1px solid rgba(244, 114, 182, 0.22);
+      border-radius: 14px;
+      padding: 12px 14px;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .summary-list span {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--pink);
+      margin-bottom: 3px;
+    }
+
+    .whatsapp-btn {
+      background: linear-gradient(135deg, #22c55e, #16a34a) !important;
+      border: none !important;
+      color: #ffffff !important;
+      font-size: 16px !important;
+      padding: 16px !important;
+    }
+
+    .back-btn {
+      margin-top: 14px;
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      font-size: 13px;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 440px) {
+      .options.two-col {
+        grid-template-columns: 1fr;
+      }
+      .container {
+        padding: 22px 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <div class="progress-wrap">
+      <div class="progress-label">
+        <span id="stepCounter">Etapa 1 de 8</span>
+        <span>Convite Especial</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+
+    <!-- Etapa 1 -->
+    <section class="step active" data-step="1">
+      <span class="badge">Convite</span>
+      <h1>Oi Emilly, esse site é um convite para a gente passar um tempo juntos antes do culto.</h1>
+      <p>Fiz algo simples e feito com carinho para combinarmos os detalhes sem pressa.</p>
+      <button class="choice primary" onclick="goToStep(2)">Continuar</button>
+    </section>
+
+    <!-- Etapa 2 -->
+    <section class="step" data-step="2">
+      <span class="badge">Pergunta</span>
+      <h2>Você aceita?</h2>
+      <p>Sem pressão — é só a gente combinar um dia tranquilo para conversar e aproveitar.</p>
+      <div class="options two-col">
+        <button class="choice" onclick="selectAccept('Sim')">Sim</button>
+        <button class="choice" onclick="selectAccept('Com certeza')">Com certeza</button>
+      </div>
+      <button class="back-btn" onclick="goToStep(1)">Voltar</button>
+    </section>
+
+    <!-- Etapa 3 -->
+    <section class="step" data-step="3">
+      <span class="badge">Data</span>
+      <h2>Que bom que você escolheu por livre e espontânea vontade! Preciso saber qual sábado você prefere?</h2>
+      <p>Escolha a data que fica mais tranquila para você:</p>
+      <div class="options two-col">
+        <button class="choice" onclick="selectDate('28/11')">28/11</button>
+        <button class="choice" onclick="selectDate('05/12')">05/12</button>
+      </div>
+      <button class="back-btn" onclick="goToStep(2)">Voltar</button>
+    </section>
+
+    <!-- Etapa 4 -->
+    <section class="step" data-step="4">
+      <span class="badge">Passeio</span>
+      <h2>O que você quer fazer?</h2>
+      <p>Escolha a opção que combina mais com o clima do dia:</p>
+      <div class="options">
+        <button class="choice" onclick="selectActivity('Parque Villa Lobos')">Parque Villa Lobos</button>
+        <button class="choice" onclick="selectActivity('Cinema (assistir Hexed) — Shopping Villa Lobos')">Cinema (assistir Hexed) — Shopping Villa Lobos</button>
+      </div>
+      <button class="back-btn" onclick="goToStep(3)">Voltar</button>
+    </section>
+
+    <!-- Etapa 5 (Condicional Cinema) -->
+    <section class="step" data-step="5">
+      <span class="badge">Cinema no Shopping Villa Lobos</span>
+      <h2>Sobre o filme: Hexed</h2>
+      <div class="info-box">
+        <h3>Sinopse</h3>
+        <p style="margin-bottom: 0;">
+          A trama acompanha Billie Doe, uma adolescente impulsiva, desajeitada e considerada "estranha" que tenta entender por que não se encaixa. A vida dela muda por completo quando ela desperta poderes mágicos latentes — um segredo que sua mãe, Alice Doe, tentou esconder por muito tempo para protegê-la.
+        </p>
+      </div>
+      <button class="choice primary" onclick="goToStep(6)">Escolher horário do encontro</button>
+      <button class="back-btn" onclick="goToStep(4)">Trocar passeio</button>
+    </section>
+
+    <!-- Etapa 6 -->
+    <section class="step" data-step="6">
+      <span class="badge">Horário</span>
+      <h2>Horário do encontro no trem Santo Amaro</h2>
+      <p>Qual horário fica melhor para nos encontrarmos?</p>
+      <div class="options two-col">
+        <button class="choice" onclick="selectTime('10h')">10h</button>
+        <button class="choice" onclick="selectTime('11h')">11h</button>
+        <button class="choice" onclick="selectTime('12h')">12h</button>
+        <button class="choice" onclick="selectTime('13h')">13h</button>
+      </div>
+      <button class="back-btn" onclick="backFromTime()">Voltar</button>
+    </section>
+
+    <!-- Etapa 7 -->
+    <section class="step" data-step="7">
+      <span class="badge">Restaurante</span>
+      <h2>Restaurante América</h2>
+      <div class="info-box">
+        <h3>Onde vamos comer</h3>
+        <p>
+          Depois do nosso passeio, passamos no Restaurante América antes de seguirmos para o culto às 18h.
+        </p>
+        <a class="btn-link" href="https://maps.app.goo.gl/itYUcCh8tvpJAD4z7" target="_blank" rel="noopener noreferrer">
+          Ver localização no Google Maps
+        </a>
+      </div>
+      <button class="choice primary" onclick="goToStep(8)">Ver resumo final</button>
+      <button class="back-btn" onclick="goToStep(6)">Trocar horário</button>
+    </section>
+
+    <!-- Etapa 8 -->
+    <section class="step" data-step="8">
+      <span class="badge">Confirmado</span>
+      <h2>Está marcado! Me mande as respostas no WhatsApp</h2>
+      <p>Confira o resumo das suas escolhas abaixo e clique no botão para me enviar direto no WhatsApp:</p>
+
+      <ul class="summary-list">
+        <li>
+          <span>Resposta</span>
+          <strong id="sumAccept">-</strong>
+        </li>
+        <li>
+          <span>Sábado escolhido</span>
+          <strong id="sumDate">-</strong>
+        </li>
+        <li>
+          <span>Passeio</span>
+          <strong id="sumActivity">-</strong>
+        </li>
+        <li>
+          <span>Encontro no trem Santo Amaro</span>
+          <strong id="sumTime">-</strong>
+        </li>
+        <li>
+          <span>Restaurante & Culto</span>
+          <strong>Restaurante América • 18h - culto</strong>
+        </li>
+      </ul>
+
+      <a id="whatsappLink" class="btn-link whatsapp-btn" href="#" target="_blank" rel="noopener noreferrer">
+        Enviar respostas no WhatsApp
+      </a>
+      <button class="back-btn" onclick="goToStep(7)">Voltar</button>
+    </section>
+  </main>
+
+  <script>
+    const state = {
+      accept: "Sim",
+      date: "",
+      activity: "",
+      time: ""
+    };
+
+    const totalSteps = 8;
+
+    function goToStep(stepNumber) {
+      document.querySelectorAll(".step").forEach((el) => {
+        el.classList.remove("active");
+      });
+      const target = document.querySelector(`.step[data-step="${stepNumber}"]`);
+      if (target) {
+        target.classList.add("active");
+      }
+
+      document.getElementById("stepCounter").textContent = `Etapa ${stepNumber} de ${totalSteps}`;
+      const percent = (stepNumber / totalSteps) * 100;
+      document.getElementById("progressFill").style.width = `${percent}%`;
+
+      if (stepNumber === 8) {
+        renderSummary();
+      }
+    }
+
+    function selectAccept(value) {
+      state.accept = value;
+      goToStep(3);
+    }
+
+    function selectDate(value) {
+      state.date = value;
+      goToStep(4);
+    }
+
+    function selectActivity(value) {
+      state.activity = value;
+      if (value.startsWith("Cinema")) {
+        goToStep(5);
+      } else {
+        goToStep(6);
+      }
+    }
+
+    function backFromTime() {
+      if (state.activity.startsWith("Cinema")) {
+        goToStep(5);
+      } else {
+        goToStep(4);
+      }
+    }
+
+    function selectTime(value) {
+      state.time = value;
+      goToStep(7);
+    }
+
+    function renderSummary() {
+      document.getElementById("sumAccept").textContent = state.accept || "-";
+      document.getElementById("sumDate").textContent = state.date || "-";
+      document.getElementById("sumActivity").textContent = state.activity || "-";
+      document.getElementById("sumTime").textContent = state.time || "-";
+
+      const message = [
+        "Oi! Respondi o convite:",
+        `- Aceite: ${state.accept || "-"}`,
+        `- Sábado: ${state.date || "-"}`,
+        `- Passeio: ${state.activity || "-"}`,
+        `- Encontro no trem Santo Amaro: ${state.time || "-"}`,
+        "- Restaurante América",
+        "- 18h - culto"
+      ].join("\n");
+
+      const phone = "5511993998332";
+      const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+      document.getElementById("whatsappLink").href = url;
+    }
+  </script>
+</body>
+</html>
